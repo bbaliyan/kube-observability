@@ -1,0 +1,15 @@
+# Storage class used by all PVCs in this stack.
+# Default: local-path (K3s built-in). Override with your provider's class
+# (e.g. 'democratic-csi-nfs', 'longhorn') via helm.parameters in kube-apps.
+storageClassName: "local-path"
+
+# Optional CSI driver bootstrap Application. When set, a wave-0 Application
+# is created to install the driver before the observability components arrive.
+# Set to the git repo URL of a kube-observability-compatible CSI driver chart.
+storageProvisionerRepoURL: ""
+storageProvisionerRevision: "main"
+storageProvisionerPath: "bootstrap"
+
+# When set, IngressRoutes for Grafana and Prometheus are created via Traefik.
+# Must match the clusterFqdnSuffix used in kube-platform.
+clusterFqdnSuffix: ""

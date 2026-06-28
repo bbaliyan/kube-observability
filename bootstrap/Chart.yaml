@@ -1,0 +1,5 @@
+apiVersion: v2
+name: kube-observability-bootstrap
+description: App-of-apps bootstrap chart for kube-observability. Parent is an Argo CD Application registered in kube-apps; creates child Applications for Loki, Alloy, and Prometheus.
+type: application
+version: 0.1.0
