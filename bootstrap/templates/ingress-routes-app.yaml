@@ -1,0 +1,28 @@
+{{- if .Values.clusterFqdnSuffix }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: observability-ingress-routes
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/bbaliyan/kube-observability.git
+    targetRevision: main
+    path: observability/ingress-routes
+    helm:
+      parameters:
+        - name: clusterFqdnSuffix
+          value: {{ .Values.clusterFqdnSuffix | quote }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prometheus
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
